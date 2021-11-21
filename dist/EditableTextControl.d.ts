@@ -15,7 +15,6 @@ export declare const usesValidInvalidState: () => readonly [() => import("@cssfn
 export declare const usesEditableTextControlLayout: () => import("@cssfn/cssfn").StyleCollection;
 export declare const usesEditableTextControlVariants: () => import("@cssfn/cssfn").StyleCollection;
 export declare const usesEditableTextControlStates: () => import("@cssfn/cssfn").StyleCollection;
-export declare const usesEditableTextControl: () => import("@cssfn/cssfn").StyleCollection;
 export declare const useEditableTextControlSheet: import("@cssfn/types").Factory<import("jss").Classes<"main">>;
 export declare const cssProps: import("@cssfn/css-config").Refs<{
     cursor: string;
