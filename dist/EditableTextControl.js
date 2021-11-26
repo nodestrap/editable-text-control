@@ -208,12 +208,10 @@ export function EditableTextControl(props) {
     // styles:
     const sheet = useEditableTextControlSheet();
     // jsx:
-    return (<EditableControl 
-    // other props:
-    {...props} 
-    // variants:
-    mild={props.mild ?? true} 
-    // classes:
-    mainClass={props.mainClass ?? sheet.main}/>);
+    return (React.createElement(EditableControl, { ...props, 
+        // variants:
+        mild: props.mild ?? true, 
+        // classes:
+        mainClass: props.mainClass ?? sheet.main }));
 }
 export { EditableTextControl as default };
