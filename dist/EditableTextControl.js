@@ -20,7 +20,7 @@ usesGeneralProps, usesPrefixedProps, usesSuffixedProps, overwriteProps, } from '
 // nodestrap components:
 import { 
 // hooks:
-usesSizeVariant, mildOf, } from '@nodestrap/basic';
+usesSizeVariant, mildOf, usesPadding, } from '@nodestrap/basic';
 import { 
 // hooks:
 isActive, } from '@nodestrap/indicator';
@@ -87,6 +87,8 @@ export const usesEditableTextControlLayout = () => {
     // dependencies:
     // colors:
     const [iconColor, iconColorRefs] = usesIconColor();
+    // spacings:
+    const [, paddingRefs] = usesPadding();
     // states:
     const [, validInvalidRefs] = usesValidInvalidState();
     return composition([
@@ -110,8 +112,11 @@ export const usesEditableTextControlLayout = () => {
                     // sizes:
                     boxSizing: 'border-box',
                     blockSize: cssProps.iconSize,
-                    inlineSize: `calc(${cssProps.iconSize} *  1.25)`,
-                    marginInlineStart: `calc(${cssProps.iconSize} * -1.25)`,
+                    aspectRatio: 1.5,
+                    // positions:
+                    position: 'absolute',
+                    insetInlineEnd: paddingRefs.paddingInline,
+                    insetBlockStart: `calc(50% - (${cssProps.iconSize} / 2))`,
                     maskPosition: 'right',
                     // accessibilities:
                     pointerEvents: 'none',
