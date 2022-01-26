@@ -3,11 +3,13 @@ import { default as React, } from 'react'; // base technology of our nodestrap c
 // cssfn:
 import { 
 // compositions:
-composition, mainComposition, imports, 
-// layouts:
-layout, vars, children, 
+mainComposition, 
+// styles:
+style, vars, imports, 
 // rules:
 states, 
+//combinators:
+children, 
 // utilities:
 escapeSvg, } from '@cssfn/cssfn'; // cssfn core
 import { 
@@ -38,43 +40,43 @@ usesIconImage, } from '@nodestrap/icon';
 // hooks:
 // states:
 //#region activePassive
-export const markActive = () => composition([
-    imports([
+export const markActive = () => style({
+    ...imports([
         controlMarkActive(),
         mildOf(null), // keeps mild variant
     ]),
-]);
+});
 const [validInvalidRefs, validInvalidDecls] = createCssVar();
 /**
  * Uses valid & invalid states.
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents valid & invalid state definitions.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents valid & invalid state definitions.
  */
 export const usesValidInvalidState = () => {
     // dependencies:
     const [validInvalid, , , ...restValidInvalid] = editableControlUsesValidInvalidState();
     return [
-        () => composition([
-            imports([
+        () => style({
+            ...imports([
                 validInvalid(),
             ]),
-            vars({
+            ...vars({
                 [validInvalidDecls.iconImg]: 'none',
             }),
-            states([
-                isValid([
-                    vars({
+            ...states([
+                isValid({
+                    ...vars({
                         // apply a *valid* icon indicator:
                         [validInvalidDecls.iconImg]: cssProps.iconValid,
                     }),
-                ]),
-                isInvalid([
-                    vars({
+                }),
+                isInvalid({
+                    ...vars({
                         // apply an *invalid* icon indicator:
                         [validInvalidDecls.iconImg]: cssProps.iconInvalid,
                     }),
-                ]),
+                }),
             ]),
-        ]),
+        }),
         validInvalidRefs,
         validInvalidDecls,
         ...restValidInvalid,
@@ -91,21 +93,21 @@ export const usesEditableTextControlLayout = () => {
     const [, paddingRefs] = usesPadding();
     // states:
     const [, validInvalidRefs] = usesValidInvalidState();
-    return composition([
-        imports([
+    return style({
+        ...imports([
             // layouts:
             usesEditableControlLayout(),
             // colors:
             iconColor(), // do not import `iconColor()` on pseudo `::after`
         ]),
-        layout({
-            ...children(iconElm, [
-                imports([
+        ...style({
+            ...children(iconElm, {
+                ...imports([
                     usesIconImage(
                     /*iconImage: */ validInvalidRefs.iconImg, 
                     /*iconColor: */ iconColorRefs.iconCol),
                 ]),
-                layout({
+                ...style({
                     // layouts:
                     content: '""',
                     display: 'inline-block',
@@ -123,79 +125,71 @@ export const usesEditableTextControlLayout = () => {
                     // customize:
                     ...usesGeneralProps(usesPrefixedProps(cssProps, 'icon')), // apply general cssProps starting with icon***
                 }),
-            ]),
+            }),
             // customize:
             ...usesGeneralProps(cssProps), // apply general cssProps
         }),
-    ]);
+    });
 };
 export const usesEditableTextControlVariants = () => {
     // dependencies:
     // layouts:
-    const [sizes] = usesSizeVariant((sizeName) => composition([
-        layout({
-            // overwrites propName = propName{SizeName}:
-            ...overwriteProps(cssDecls, usesSuffixedProps(cssProps, sizeName)),
-        }),
-    ]));
-    return composition([
-        imports([
+    const [sizes] = usesSizeVariant((sizeName) => style({
+        // overwrites propName = propName{SizeName}:
+        ...overwriteProps(cssDecls, usesSuffixedProps(cssProps, sizeName)),
+    }));
+    return style({
+        ...imports([
             // variants:
             usesEditableControlVariants(),
             // layouts:
             sizes(),
         ]),
-    ]);
+    });
 };
 export const usesEditableTextControlStates = () => {
     // dependencies:
     // states:
     const [validInvalid] = usesValidInvalidState();
-    return composition([
-        imports([
+    return style({
+        ...imports([
             // states:
             usesEditableControlStates(),
             validInvalid(),
         ]),
-        states([
-            isActive([
-                imports([
+        ...states([
+            isActive({
+                ...imports([
                     markActive(),
                 ]),
-            ]),
-            isFocus([
-                imports([
+            }),
+            isFocus({
+                ...imports([
                     markActive(),
                 ]),
-            ]),
-            isArrive([
-                imports([
+            }),
+            isArrive({
+                ...imports([
                     markActive(),
                 ]),
-            ]),
-            isNoValidation([
-                layout({
-                    ...children(iconElm, [
-                        layout({
-                            display: 'none',
-                        }),
-                    ]),
+            }),
+            isNoValidation({
+                ...children(iconElm, {
+                    display: 'none',
                 }),
-            ]),
+            }),
         ]),
-    ]);
+    });
 };
 export const useEditableTextControlSheet = createUseSheet(() => [
-    mainComposition([
-        imports([
-            // layouts:
-            usesEditableTextControlLayout(),
-            // variants:
-            usesEditableTextControlVariants(),
-            // states:
-            usesEditableTextControlStates(),
-        ]),
-    ]),
+    mainComposition(imports([
+        // layouts:
+        usesEditableTextControlLayout(),
+        // variants:
+        usesEditableTextControlVariants(),
+        // states:
+        usesEditableTextControlStates(),
+    ])),
 ], /*sheetId :*/ '783lmd7hos'); // an unique salt for SSR support, ensures the server-side & client-side have the same generated class names
 // configs:
 export const [cssProps, cssDecls, cssVals, cssConfig] = createCssConfig(() => {
