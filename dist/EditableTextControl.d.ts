@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+/// <reference types="react" />
 import { ValidInvalidVars as EditableControlValidInvalidVars, EditableControlProps } from '@nodestrap/editable-control';
 export declare const markActive: () => import("@cssfn/cssfn").Rule;
 export interface ValidInvalidVars extends EditableControlValidInvalidVars {
@@ -36,7 +36,6 @@ export declare type EditableTextControlElement = HTMLInputElement | HTMLSelectEl
 export interface EditableTextControlProps<TElement extends EditableTextControlElement = EditableTextControlElement> extends EditableControlProps<TElement> {
     minLength?: number;
     maxLength?: number;
-    onChange?: React.ChangeEventHandler<TElement>;
 }
 export declare function EditableTextControl<TElement extends EditableTextControlElement = EditableTextControlElement>(props: EditableTextControlProps<TElement>): JSX.Element;
 export { EditableTextControl as default };

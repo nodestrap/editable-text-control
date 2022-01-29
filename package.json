@@ -1,6 +1,6 @@
 {
   "name": "@nodestrap/editable-text-control",
-  "version": "4.0.6",
+  "version": "4.0.7",
   "description": "A generic element with valid/invalid state for editing text.",
   "type": "module",
   "main": "dist/EditableTextControl.js",
@@ -34,11 +34,11 @@
   "dependencies": {
     "@cssfn/css-config": "^1.0.4",
     "@cssfn/css-var": "^1.0.4",
-    "@cssfn/cssfn": "^1.0.10",
+    "@cssfn/cssfn": "^1.0.11",
     "@cssfn/react-cssfn": "^1.0.11",
     "@nodestrap/basic": "^4.0.7",
     "@nodestrap/control": "^4.0.8",
-    "@nodestrap/editable-control": "^4.0.6",
+    "@nodestrap/editable-control": "^4.0.7",
     "@nodestrap/icon": "^4.0.9",
     "@nodestrap/indicator": "^4.0.7",
     "@types/react": "^17.0.38",
